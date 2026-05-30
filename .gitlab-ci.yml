@@ -1,0 +1,19 @@
+image: "pets-26-runner-p1"
+
+stages:
+#  - build
+  - test
+#  - deploy
+
+test:
+  tags: ['pets-26']
+  stage: test
+  script:
+    - echo "Running automated test for \`$GITLAB_USER_LOGIN\`..."
+    - cp /root/src/test_integration.py ./
+    - pytest test_integration.py > result.txt 2>&1 || true
+    - cat result.txt
+  artifacts:
+    when: always
+    paths:
+      - result.txt
