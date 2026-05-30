@@ -1,11 +1,11 @@
-# Secure Multi-Party Computation — Project Overview
+# Secure Multi-Party Computation - Project Overview
 
 ## What I built
 
 For this project I implemented a small **secure multi-party computation (SMC)**
 system in Python. The idea is that several people each hold a private number,
-and together they want to compute some arithmetic over those numbers — a sum, a
-product, and so on — *without anyone revealing their own value to the others*.
+and together they want to compute some arithmetic over those numbers : a sum, a
+product, and so on ,*without anyone revealing their own value to the others*.
 At the end, everyone learns only the final result.
 
 The trick that makes this possible is **additive secret sharing**: a secret
@@ -22,17 +22,17 @@ secrets.
 The project came with a skeleton where the communication layer, the server, and
 the tests were already provided. I implemented four files:
 
-- **`expression.py`** — lets me describe a computation like `a * b + c` as a
+- **`expression.py`** - lets me describe a computation like `a * b + c` as a
   tree (an abstract syntax tree). Writing the expression doesn't compute
   anything; it just records the structure so the client can walk it later.
-- **`secret_sharing.py`** — splits a number into shares and reconstructs it. All
+- **`secret_sharing.py`** - splits a number into shares and reconstructs it. All
   the math happens modulo a large prime so the numbers stay in a fixed range,
   and because the prime is far bigger than any real value, the final answer is
   always exact.
-- **`ttp.py`** — the trusted parameter generator. It creates **Beaver triplets**
+- **`ttp.py`** - the trusted parameter generator. It creates **Beaver triplets**
   `(a, b, c)` with `a * b = c`, which are the helper values needed to multiply
   two secrets. A fresh triplet is generated for every multiplication.
-- **`smc_party.py`** — the brain of each participant. It shares out its own
+- **`smc_party.py`** - the brain of each participant. It shares out its own
   secrets, walks the expression tree computing its own share of every result,
   and finally reconstructs the answer with the other parties.
 
@@ -40,7 +40,7 @@ the tests were already provided. I implemented four files:
 
 - **Addition / subtraction** of two secrets is done locally — each party just
   adds or subtracts its own shares, no communication needed.
-- **Multiplication by a constant** is also local — each party multiplies its
+- **Multiplication by a constant** is also local - each party multiplies its
   share by the public number.
 - **Adding a constant** is done by only one designated party, so the constant is
   counted exactly once instead of once per participant.
@@ -87,7 +87,7 @@ Because the inputs are secret-shared, neither party ever sees the other's
 individual answers; they only learn the final score. I also documented the
 honest limitations: the scheme doesn't protect against an actively cheating
 party (e.g. submitting values that aren't `0`/`1`), and revealing the score on a
-very small interest list could leak information — which is why I use several
+very small interest list could leak information - which is why I use several
 interests.
 
 **A design decision I had to make:** I deliberately did *not* subtract the match
