@@ -1,4 +1,4 @@
-# Secure Multi-Party Computation (SMComfiler) — Project Overview
+# Secure Multi-Party Computation — Project Overview
 
 ## What I built
 
